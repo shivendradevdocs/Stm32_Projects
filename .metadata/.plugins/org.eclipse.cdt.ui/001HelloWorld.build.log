@@ -1,0 +1,31 @@
+23:18:56 **** Build of configuration Debug for project 001HelloWorld ****
+make -j7 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f334r8tx.d" -MT"Startup/startup_stm32f334r8tx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f334r8tx.o" "../Startup/startup_stm32f334r8tx.s"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F334R8 -DSTM32 -DSTM32F3 -DSTM32F334R8Tx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F334R8 -DSTM32 -DSTM32F3 -DSTM32F334R8Tx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F334R8 -DSTM32 -DSTM32F3 -DSTM32F334R8Tx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+../Src/main.c: In function 'main':
+../Src/main.c:29:9: warning: implicit declaration of function 'SystemCoreClockUpdate' [-Wimplicit-function-declaration]
+   29 |         SystemCoreClockUpdate();
+      |         ^~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:30:9: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   30 |         printf("Clock = %lu Hz\n", SystemCoreClock);
+      |         ^~~~~~
+../Src/main.c:20:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   19 | #include <stdint.h>
+  +++ |+#include <stdio.h>
+   20 | 
+../Src/main.c:30:9: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   30 |         printf("Clock = %lu Hz\n", SystemCoreClock);
+      |         ^~~~~~
+../Src/main.c:30:9: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "001HelloWorld.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/shivendrarai/Documents/embedded/my_workspace/target/001HelloWorld/STM32F334R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="001HelloWorld.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.100.202509120712/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld: ./Src/main.o: in function `main':
+/Users/shivendrarai/Documents/embedded/my_workspace/target/001HelloWorld/Debug/../Src/main.c:29:(.text.main+0x4): undefined reference to `SystemCoreClockUpdate'
+/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.100.202509120712/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld: /Users/shivendrarai/Documents/embedded/my_workspace/target/001HelloWorld/Debug/../Src/main.c:32:(.text.main+0x20): undefined reference to `SystemCoreClock'
+collect2: error: ld returned 1 exit status
+make: *** [makefile:63: 001HelloWorld.elf] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+
+23:18:56 Build Failed. 3 errors, 3 warnings. (took 516ms)
+
