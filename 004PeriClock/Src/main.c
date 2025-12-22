@@ -22,15 +22,62 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-#define ADC_BASE_ADDR 0x50000000UL
+//#define ADC_BASE_ADDR 0x50000000UL
+//
+//#define ADC_CRI_REG_OFFSET 0x08UL
+//
+//#define RCC_BASE_ADDR  0x40021000UL
+//
+//#define RCC_AHB_ENR_OFFSET 0x14UL
+//
+//#define RCC_AHB_ENR_ADDR (RCC_BASE_ADDR+RCC_AHB_ENR_OFFSET)
+//
+//#define ADC_CRI_REG_ADDR (ADC_BASE_ADDR + ADC_CRI_REG_OFFSET)
+//
+//int main(void)
+//{
+//    /* Loop forever */
+//
+//	uint32_t *pAdcCr1Reg=(uint32_t *)ADC_CRI_REG_ADDR;
+//
+//	uint32_t *pRccAhbEnr=(uint32_t *)RCC_AHB_ENR_ADDR;
+//
+//	//1. enable peripheral clock
+//	*pRccAhbEnr |=(1<<28);
+//	//2. modify ADC CR register
+//
+//	*pAdcCr1Reg |=(1<<28);
+//	for(;;);
+//}
 
-#define ADC_CRI_REG_OFFSET 0x08UL
-#define ADC_CRI_REG_ADDR (ADC_BASE_ADDR + ADC_CRI_REG_OFFSET)
+#define ADC_BASE_ADDR      0x50000000UL
+#define ADC_CR_OFFSET      0x08UL
+#define RCC_BASE_ADDR      0x40021000UL
+#define RCC_AHBENR_OFFSET  0x14UL
+
+#define ADC_CR_ADDR        (ADC_BASE_ADDR + ADC_CR_OFFSET)
+#define RCC_AHBENR_ADDR    (RCC_BASE_ADDR + RCC_AHBENR_OFFSET)
+
+#define ADC_CR_DEEPPWD     (1U << 29)
+#define ADC_CR_ADVREGEN_0  (1U << 28)
+
 int main(void)
 {
-    /* Loop forever */
-	uint32_t *pAdcCr1Reg=(uint32_t *)ADC_CRI_REG_ADDR;
+    volatile uint32_t *ADC_CR  = (volatile uint32_t *)ADC_CR_ADDR;
+    volatile uint32_t *RCC_AHB = (volatile uint32_t *)RCC_AHBENR_ADDR;
 
-	*pAdcCr1Reg |=(1<<8);
-	for(;;);
+    /* 1. Enable ADC clock */
+    *RCC_AHB |= (1U << 28);   // ADC12EN
+
+    /* 2. Exit deep power-down mode */
+    *ADC_CR &= ~ADC_CR_DEEPPWD;
+
+    /* 3. Enable ADC voltage regulator */
+    *ADC_CR |= ADC_CR_ADVREGEN_0;
+
+    /* 4. Wait >= 10 us (MANDATORY) */
+    for (volatile int i = 0; i < 1000; i++);
+
+    while (1);
 }
+

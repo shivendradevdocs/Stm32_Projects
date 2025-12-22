@@ -59,8 +59,8 @@ all: main-build
 main-build: 004PeriClock.elf secondary-outputs
 
 # Tool invocations
-004PeriClock.elf 004PeriClock.map: $(OBJS) $(USER_OBJS) /Users/shivendrarai/Documents/embedded/my_workspace/target/004PeriClock/STM32F334R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "004PeriClock.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/shivendrarai/Documents/embedded/my_workspace/target/004PeriClock/STM32F334R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="004PeriClock.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+004PeriClock.elf 004PeriClock.map: $(OBJS) $(USER_OBJS) D:\STM32\Stm32_Projects\004PeriClock\STM32F334R8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "004PeriClock.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\STM32\Stm32_Projects\004PeriClock\STM32F334R8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="004PeriClock.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
