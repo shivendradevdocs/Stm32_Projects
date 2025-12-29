@@ -1,0 +1,10 @@
+12:56:10 **** Clean-only build of configuration Debug for project Gpiodrivercode ****
+make -j7 clean 
+rm -rf ./drivers/Src/stm32f334xx_gpio_driver.cyclo ./drivers/Src/stm32f334xx_gpio_driver.d ./drivers/Src/stm32f334xx_gpio_driver.o ./drivers/Src/stm32f334xx_gpio_driver.su
+rm -rf ./Startup/startup_stm32f334r8tx.d ./Startup/startup_stm32f334r8tx.o
+rm -rf ./Src/001ledpintoggle.cyclo ./Src/001ledpintoggle.d ./Src/001ledpintoggle.o ./Src/001ledpintoggle.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+rm -rf Gpiodrivercode.elf Gpiodrivercode.list Gpiodrivercode.map default.size.stdout
+ 
+
+12:56:10 Build Finished. 0 errors, 0 warnings. (took 896ms)
+

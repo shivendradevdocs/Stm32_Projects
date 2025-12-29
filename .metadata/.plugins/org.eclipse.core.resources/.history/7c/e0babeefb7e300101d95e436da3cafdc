@@ -1,0 +1,53 @@
+#include<stm32f334xx_gpio_driver.h>
+
+
+
+void GPIO_PeriClockControl(GPIO_TypeDef *pGPIOx, uint8_t EnorDi)
+{
+	if(EnorDi == ENABLE)
+	{
+		if(pGPIOx == GPIOA)
+		{
+			GPIOA_PCLK_EN();
+		}else if (pGPIOx == GPIOB)
+		{
+			GPIOB_PCLK_EN();
+		}else if (pGPIOx == GPIOC)
+		{
+			GPIOC_PCLK_EN();
+		}else if (pGPIOx == GPIOD)
+		{
+			GPIOD_PCLK_EN();
+		}
+	else
+	{
+		if(pGPIOx == GPIOA)
+		{
+			GPIOA_PCLK_EN();
+		}else if (pGPIOx == GPIOB)
+		{
+			GPIOB_PCLK_EN();
+
+		}else if (pGPIOx == GPIOC)
+		{
+			GPIOC_PCLK_EN();
+		}else if (pGPIOx == GPIOD)
+		{
+			GPIOD_PCLK_EN();
+		}
+	}
+
+}
+
+
+
+void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
+
+}
+
+
+void GPIO_DeInit(GPIO_TypeDef *pGPIOx){
+
+}
+
+

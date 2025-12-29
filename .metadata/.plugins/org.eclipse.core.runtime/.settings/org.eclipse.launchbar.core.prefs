@@ -1,12 +1,14 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=macosx
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004PeriClock,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:New_configuration
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:New_configuration,org.eclipse.launchbar.core.descriptorType.default\:target_code,org.eclipse.launchbar.core.descriptorType.default\:Average Debug,org.eclipse.launchbar.core.descriptorType.default\:target_code (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004PeriClock
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001HelloWorld/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:001HelloWorld/activeLaunchTarget=null\:---
-org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004PeriClock/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:004PeriClock/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:New_configuration/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:New_configuration/activeLaunchTarget=null\:---
 org.eclipse.launchbar.core.descriptorType.default\:New_configuration/activeLaunchMode=debug
 org.eclipse.launchbar.core.descriptorType.default\:New_configuration/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:target_code/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:target_code/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

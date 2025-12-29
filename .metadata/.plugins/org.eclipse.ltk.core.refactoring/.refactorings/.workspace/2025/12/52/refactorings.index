@@ -1,1 +1,6 @@
 1766324925645	Delete resource 'clock'
+1766832135888	Delete resource 'Gpiodrivercode'
+1766832864593	Delete resource 'gpiodrivercode/driver'
+1766832973064	Delete resource 'gpiodrivercode'
+1766840928471	Delete resource 'Gpiodrivercode/Inc/STM32F334xx.h'
+1766841118350	Delete resource 'Gpiodrivercode/drivers/Inc/stm32f334xx_gpio_driver.h'
