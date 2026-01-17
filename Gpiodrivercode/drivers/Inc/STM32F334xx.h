@@ -10,6 +10,37 @@
 
 #include<stdint.h>
 
+#define __vo volatile
+
+
+
+/**********************************START:Processor Specific Details **********************************/
+/*
+ * ARM Cortex M4x Processor NVIC ISERx register Addresses
+ */
+
+#define NVIC_ISER0          ( (__vo uint32_t*)0xE000E100 )
+#define NVIC_ISER1          ( (__vo uint32_t*)0xE000E104 )
+#define NVIC_ISER2          ( (__vo uint32_t*)0xE000E108 )
+#define NVIC_ISER3          ( (__vo uint32_t*)0xE000E10c )
+
+
+/*
+ * ARM Cortex Mx Processor NVIC ICERx register Addresses
+ */
+#define NVIC_ICER0 			((__vo uint32_t*)0XE000E180)
+#define NVIC_ICER1			((__vo uint32_t*)0XE000E184)
+#define NVIC_ICER2  		((__vo uint32_t*)0XE000E188)
+#define NVIC_ICER3			((__vo uint32_t*)0XE000E18C)
+
+
+/*
+ * ARM Cortex Mx Processor Priority Register Address Calculation
+ */
+#define NVIC_PR_BASE_ADDR 	((__vo uint32_t*)0xE000E400)
+
+
+#define NO_PR_BITS_IMPLEMENTED			4
 // Base address of flash and sram
 #define FLASH_BASEADDR              0x08000000UL
 #define SRAM_BASEADDR               0x20000000UL
@@ -40,16 +71,16 @@
 
 
 /* ================= APB2 PERIPHERALS ================= */
-#define SYSCFG_BASEADDR             (APB2PERIPH_BASE + 0x0000UL)
-#define EXTI_BASEADDR               (APB2PERIPH_BASE + 0x0400UL)
+#define SYSCFG_BASEADDR             (APB2PERI_BASE + 0x0000UL)
+#define EXTI_BASEADDR               (APB2PERI_BASE + 0x0400UL)
 
-#define TIM1_BASEADDR               (APB2PERIPH_BASE + 0x2C00UL)
-#define SPI1_BASEADDR               (APB2PERIPH_BASE + 0x3000UL)
-#define USART1_BASEADDR             (APB2PERIPH_BASE + 0x3800UL)
+#define TIM1_BASEADDR               (APB2PERI_BASE + 0x2C00UL)
+#define SPI1_BASEADDR               (APB2PERI_BASE + 0x3000UL)
+#define USART1_BASEADDR             (APB2PERI_BASE + 0x3800UL)
 
-#define TIM15_BASEADDR              (APB2PERIPH_BASE + 0x4000UL)
-#define TIM16_BASEADDR              (APB2PERIPH_BASE + 0x4400UL)
-#define TIM17_BASEADDR              (APB2PERIPH_BASE + 0x4800UL)
+#define TIM15_BASEADDR              (APB2PERI_BASE + 0x4000UL)
+#define TIM16_BASEADDR              (APB2PERI_BASE + 0x4400UL)
+#define TIM17_BASEADDR              (APB2PERI_BASE + 0x4800UL)
 
 
 /* ================= ADC (SEPARATE DOMAIN) ================= */
@@ -134,9 +165,35 @@ typedef struct
     volatile uint32_t CFGR3;      /* 0x30 Clock configuration register 3 */
 } RCC_TypeDef;
 
+
+
+typedef struct
+{
+	__vo uint32_t IMR;    /*!< Give a short description,          	  	    Address offset: 0x00 */
+	__vo uint32_t EMR;    /*!< TODO,                						Address offset: 0x04 */
+	__vo uint32_t RTSR;   /*!< TODO,  									     Address offset: 0x08 */
+	__vo uint32_t FTSR;   /*!< TODO, 										Address offset: 0x0C */
+	__vo uint32_t SWIER;  /*!< TODO,  									   Address offset: 0x10 */
+	__vo uint32_t PR;     /*!< TODO,                   					   Address offset: 0x14 */
+
+}EXTI_RegDef_t;
+
+typedef struct
+{
+    volatile uint32_t CFGR1;     /* 0x00: Configuration register 1 */
+    volatile uint32_t CFGR2;
+    volatile uint32_t EXTICR[4]; /* 0x04: Configuration register 2 */
+//    volatile uint32_t EXTICR1;   /* 0x08: EXTI configuration register 1 */
+//    volatile uint32_t EXTICR2;   /* 0x0C: EXTI configuration register 2 */
+//    volatile uint32_t EXTICR3;   /* 0x10: EXTI configuration register 3 */
+//    volatile uint32_t EXTICR4;   /* 0x14: EXTI configuration register 4 */
+    volatile uint32_t CFGR3;     /* 0x18: Configuration register 3 */
+    volatile uint32_t CFGR4;     /* 0x1C: Configuration register 4 */
+} SYSCFG_TypeDef;
+
 #define RCC   ((RCC_TypeDef *) RCC_BASEADDR)
-
-
+#define EXTI ((EXTI_RegDef_t *)EXTI_BASEADDR)
+#define SYSCFG ((SYSCFG_TypeDef *)SYSCFG_BASEADDR)
 // Clock enable macros for GPIOx
 
 #define GPIOA_PCLK_EN()  (RCC->AHBENR|=(1<<17))
@@ -192,6 +249,45 @@ typedef struct
 #define GPIO_PIN_RESET      RESET
 #define FLAG_RESET         RESET
 #define FLAG_SET 			SET
+
+
+
+#define GPIO_BASEADDR_TO_CODE(x)      ( (x == GPIOA)?0:\
+										(x == GPIOB)?1:\
+										(x == GPIOC)?2:\
+										(x == GPIOD)?3:0)
+
+
+
+//    <--------------------------------IRQ No--------------------------------->
+
+#define IRQ_NO_EXTI0 		6
+#define IRQ_NO_EXTI1 		7
+#define IRQ_NO_EXTI2 		8
+#define IRQ_NO_EXTI3 		9
+#define IRQ_NO_EXTI4 		10
+#define IRQ_NO_EXTI9_5 		23
+#define IRQ_NO_EXTI15_10 	40
+#define IRQ_NO_SPI1			35
+#define IRQ_NO_SPI2         36
+#define IRQ_NO_SPI3         51
+#define IRQ_NO_SPI4
+#define IRQ_NO_I2C1_EV     31
+#define IRQ_NO_I2C1_ER     32
+#define IRQ_NO_USART1	    37
+#define IRQ_NO_USART2	    38
+#define IRQ_NO_USART3	    39
+#define IRQ_NO_UART4	    52
+#define IRQ_NO_UART5	    53
+#define IRQ_NO_USART6	    71
+
+/*
+ * macros for all the possible priority levels
+ */
+#define NVIC_IRQ_PRI0    0
+#define NVIC_IRQ_PRI15    15
+
+
 
 
 #endif /* STM32F334XX_H_ */
